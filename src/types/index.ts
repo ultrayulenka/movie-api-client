@@ -8,4 +8,11 @@ interface Movie {
   rating: number;
 }
 
-export type { Movie };
+interface User {
+  id?: number;
+  email: string;
+  username: string;
+  permissions?: Array<string>;
+}
+
+export type { Movie, User };

@@ -17,7 +17,7 @@ type RequestInterceptor = (
 ) => InternalAxiosRequestConfig;
 
 const getAuthToken = (cookies: Cookies): string | null => {
-  const token = cookies.get("userId");
+  const token = cookies.get("token");
 
   if (token) {
     return `Bearer ${token}`;

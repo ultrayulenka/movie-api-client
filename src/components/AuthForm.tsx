@@ -2,19 +2,14 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   FunctionComponent,
-  useEffect,
+  useContext,
   useState,
 } from "react";
-import { useCookies, Cookies } from "react-cookie";
-import { useApi } from "../hooks/useApi";
 import Link from "next/link";
+import axios from "axios";
+import { appContext } from "../context/app";
 
 type AuthFormType = "log-in" | "create-account";
-
-const AuthUlr: Record<AuthFormType, string> = {
-  "log-in": "/auth/signin",
-  "create-account": "/auth/signup",
-};
 
 interface Props {
   type: AuthFormType;
@@ -33,18 +28,22 @@ interface AuthFormProps {
 
 const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
-  const [isServerError, setIsServerError] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
-  const [cookies] = useCookies(["userId"]);
-  const clientCookies = new Cookies(cookies);
-  const api = useApi(clientCookies);
+  const { setUser } = useContext(appContext);
 
-  if (isServerError) {
+  const onTryAgainClick = () => setServerError("");
+
+  if (serverError) {
     return (
-      <div className="px-5 py-3">
+      <div className="px-5 py-5 mt-5">
         <h1>There is an error</h1>
+        <h2>{serverError}</h2>
+        <button className="btn btn-primary w-100 mt-5" onClick={onTryAgainClick}>
+          Try again
+        </button>
       </div>
     );
   }
@@ -57,7 +56,7 @@ const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
         ? "You`ve successfully signed in"
         : "You`ve successfully created account";
     return (
-      <div className="px-5 py-3 d-flex justify-content-center flex-column h-50">
+      <div className="px-5 py-5 mt-5 d-flex justify-content-center flex-column h-50">
         <h1>{h1Text}</h1>
         <p>{text}</p>
         <Link href="/movies" className="btn btn-primary w-100">
@@ -79,14 +78,15 @@ const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
             password,
           };
     try {
-      const res = await api.post<{
-        token: string;
-      }>(AuthUlr[type], payload);
-      clientCookies.set("userId", res.data.token);
+      const res = await axios.post<{
+        email: string;
+      }>(`/api/${type}`, payload);
+
+      setUser({ username, email });
 
       setIsFormSubmitted(true);
-    } catch {
-      setIsServerError(true);
+    } catch (error) {
+      setServerError(error?.response?.statusText || "Unknown error");
     }
   };
 
@@ -102,7 +102,7 @@ const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
       : "Please enter your details below to create new account.\nUsername should be unique.";
 
   return (
-    <div className="px-5 py-3 d-flex justify-content-center flex-column">
+    <div className="px-5 mt-5 py-5 d-flex justify-content-center flex-column">
       <h1>{h1Text}</h1>
       <p>{text}</p>
       <AuthForm
@@ -144,7 +144,7 @@ const AuthForm: FunctionComponent<AuthFormProps> = ({
             onChange={onUsernameChange}
             value={username}
           />
-          <div id="username" className="form-text">
+          <div id="username" className="form-text text-info">
             Choose unique username, please limit it to 30 characters.
           </div>
         </div>
@@ -160,8 +160,9 @@ const AuthForm: FunctionComponent<AuthFormProps> = ({
           aria-describedby="emailHelp"
           onChange={onEmailChange}
           value={email}
+          autoComplete="email"
         />
-        <div id="emailHelp" className="form-text">
+        <div id="emailHelp" className="form-text text-info">
           We'll never share your email with anyone else.
         </div>
       </div>
@@ -175,6 +176,7 @@ const AuthForm: FunctionComponent<AuthFormProps> = ({
           id="exampleInputPassword1"
           onChange={onPasswordChange}
           value={password}
+          autoComplete="password"
         />
       </div>
       <button type="submit" className="btn btn-primary w-100">

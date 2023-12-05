@@ -1,32 +1,14 @@
-import { createContext } from 'react';
-import { Cookies } from 'react-cookie';
+import { createContext } from "react";
+import { User } from "../types";
 
 interface AppContextValue {
-  userAgent: string;
-  originUrl: string;
-  cookies: Cookies;
-  isIntranet: boolean;
-  isPPMEnabled: boolean;
-  correlationId: string;
-  regionalDistributor: string | undefined;
-  collectionName: string | undefined;
-  allowBookADemoConfirmation: boolean;
-  geoHeader: string;
-  setAllowBookADemoConfirmation(value: boolean): void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 }
 
 const DEFAULT_APP_CONTEXT: AppContextValue = {
-  userAgent: '',
-  originUrl: '',
-  cookies: new Cookies(''),
-  isIntranet: false,
-  isPPMEnabled: false,
-  correlationId: 'test-uuid',
-  regionalDistributor: undefined,
-  collectionName: undefined,
-  allowBookADemoConfirmation: true,
-  geoHeader: '',
-  setAllowBookADemoConfirmation: () => undefined,
+  user: null,
+  setUser: () => {}
 };
 
 const appContext = createContext(DEFAULT_APP_CONTEXT);

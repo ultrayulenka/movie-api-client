@@ -9,8 +9,6 @@ interface Props {
 }
 
 const Movies = ({ movies }: Props) => {
-  console.log(movies);
-
   return (
     <DefaultLayout>
       <div className="card-group">
