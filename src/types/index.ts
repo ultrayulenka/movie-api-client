@@ -15,4 +15,8 @@ interface User {
   permissions?: Array<string>;
 }
 
-export type { Movie, User };
+interface Role {
+  name: string;
+}
+
+export type { Movie, User, Role };

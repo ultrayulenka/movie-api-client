@@ -1,8 +1,8 @@
 import { DefaultLayout } from "../../components/layouts/DefaultLayout";
-import { AuthInnerContent } from "../../components/AuthForm";
 import { Movie } from "../../types";
 import { getClientApiInstance } from "../../utils/api";
 import { Cookies } from "react-cookie";
+import { Card } from "../../components/Card/Card";
 
 interface Props {
   movies: Array<Movie>;
@@ -11,25 +11,9 @@ interface Props {
 const Movies = ({ movies }: Props) => {
   return (
     <DefaultLayout>
-      <div className="card-group">
+      <div className="card-group px-5" style={{ paddingTop: "66px" }}>
         {movies.map((movie) => {
-          return (
-            <div
-              className="card mr-2"
-              style={{ width: "200px", margin: "5px", border: "1px solid" }}
-            >
-              <img
-                className="card-img-top"
-                src={`https://movies-api-9eyb.onrender.com/${movie.poster}`}
-                alt={movie.name}
-                style={{ width: "100%" }}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{movie.name}</h5>
-                <p className="card-text">{movie.description}</p>
-              </div>
-            </div>
-          );
+          return <Card movie={movie} key={movie.id} />;
         })}
       </div>
     </DefaultLayout>

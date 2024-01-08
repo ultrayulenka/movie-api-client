@@ -7,7 +7,7 @@ export const Header: FunctionComponent = () => {
   const { user } = useContext(appContext);
 
   return (
-    <nav className="navbar navbar-light header position-fixed w-100">
+    <nav className="navbar navbar-light header position-fixed w-100" style={{zIndex: 10}}>
       <ul className="navbar-nav flex-row mr-auto">
         {user ? (
           <li className="nav-item inline-block">
@@ -31,9 +31,9 @@ export const Header: FunctionComponent = () => {
           </>
         )}
       </ul>
-      <a className="navbar-brand" href="#">
+      <Link className="navbar-brand" href="/">
         <Film size={24} color="beige" />
-      </a>
+      </Link>
     </nav>
   );
 };

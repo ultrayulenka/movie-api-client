@@ -18,6 +18,11 @@ const Home = () => {
           <Link className="btn btn-outline-primary" href="/movies">
             Go to movies
           </Link>
+          {user?.permissions?.includes("view user") && (
+            <Link className="btn btn-outline-info mt-3" href="/users">
+              Go to users
+            </Link>
+          )}
         </li>
       </ul>
     </DefaultLayout>
