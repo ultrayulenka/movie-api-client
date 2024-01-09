@@ -6,6 +6,7 @@ interface Movie {
   year: number;
   genre: string;
   rating: number;
+  reviews: Array<Review>
 }
 
 interface User {
@@ -19,4 +20,13 @@ interface Role {
   name: string;
 }
 
-export type { Movie, User, Role };
+interface Review {
+  id: number;
+  text: 'string';
+  rate: number;
+  movieId: number;
+  userId: number;
+  createdAt: string;
+}
+
+export type { Movie, User, Role, Review };

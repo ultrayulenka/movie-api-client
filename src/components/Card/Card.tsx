@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Card: FunctionComponent<Props> = ({ movie }) => {
-  const { name, poster, year, description, genre, rating, id } = movie;
+  const { name, poster, year, genre, rating, id } = movie;
   const { user } = useContext(appContext);
 
   return (
@@ -22,7 +22,7 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
         className="card-img-top"
         src={`https://movies-api-9eyb.onrender.com/${poster}`}
         alt={name}
-        style={{ height: "400px", width: "100%" }}
+        style={{ height: "420px", width: "100%" }}
       />
       <div className="card-body">
         <h4 className="card-title">
@@ -39,7 +39,6 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
           </div>
         </div>
 
-        <p className="card-text text-truncate">{description}</p>
         <div className="d-flex justify-content-between">
           <Link href={`/movies/${id}`} className="text-primary">
             Go to movie page

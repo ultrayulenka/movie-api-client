@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
   } catch (error) {
     return {
       props: {
-        errorCode: error,
+        errorCode: error.response?.status || 500,
       },
     };
   }

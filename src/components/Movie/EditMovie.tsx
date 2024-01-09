@@ -7,9 +7,13 @@ import { Movie } from "../../types";
 
 interface Props {
   movie: Movie;
+  variant?: "dark" | "light";
 }
 
-export const EditMovie: FunctionComponent<Props> = ({ movie }) => {
+export const EditMovie: FunctionComponent<Props> = ({
+  movie,
+  variant = "dark",
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -30,7 +34,10 @@ export const EditMovie: FunctionComponent<Props> = ({ movie }) => {
   return (
     <>
       <button className="bg-transparent border-0 mr-3" onClick={onShow}>
-        <PencilSquare size={24} />
+        <PencilSquare
+          size={24}
+          className={variant === "dark" ? "text-black" : "text-white"}
+        />
       </button>
       <MovieModal
         show={isModalOpen}
