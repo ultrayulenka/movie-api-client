@@ -1,20 +1,28 @@
-import { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Movie } from "../../types";
+import Link from "next/link";
+import { EditMovie } from "../Movie/EditMovie";
+import { appContext } from "../../context/app";
+import { DeleteMovie } from "../Movie/DeleteMovie";
 
 interface Props {
   movie: Movie;
 }
 
 export const Card: FunctionComponent<Props> = ({ movie }) => {
-  const { name, poster, year, description, genre, rating } = movie;
+  const { name, poster, year, description, genre, rating, id } = movie;
+  const { user } = useContext(appContext);
 
   return (
-    <div className="card mx-2" style={{ maxWidth: "340px" }}>
+    <div
+      className="card mx-2 mb-2"
+      style={{ maxWidth: "340px", minWidth: "300px" }}
+    >
       <img
         className="card-img-top"
         src={`https://movies-api-9eyb.onrender.com/${poster}`}
         alt={name}
-        style={{ height: '400px', width: '100%'}}
+        style={{ height: "400px", width: "100%" }}
       />
       <div className="card-body">
         <h4 className="card-title">
@@ -32,13 +40,19 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
         </div>
 
         <p className="card-text text-truncate">{description}</p>
-        <a
-          className="trailer-preview"
-          href="https://youtu.be/ePbKGoIGAXY"
-          target="new"
-        >
-          <i className="fa fa-play" aria-hidden="true"></i>
-        </a>
+        <div className="d-flex justify-content-between">
+          <Link href={`/movies/${id}`} className="text-primary">
+            Go to movie page
+          </Link>
+          <div>
+            {user?.permissions?.includes("edit movies") && (
+              <EditMovie movie={movie} />
+            )}
+            {user?.permissions?.includes("delete movies") && (
+              <DeleteMovie movie={movie} />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

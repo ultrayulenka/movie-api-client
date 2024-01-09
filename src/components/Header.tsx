@@ -2,17 +2,24 @@ import { FunctionComponent, useContext } from "react";
 import { Film, PersonCircle } from "react-bootstrap-icons";
 import { appContext } from "../context/app";
 import Link from "next/link";
+import { CreateMovie } from "./Movie/CreateMovieBtn";
 
 export const Header: FunctionComponent = () => {
   const { user } = useContext(appContext);
 
   return (
-    <nav className="navbar navbar-light header position-fixed w-100" style={{zIndex: 10}}>
-      <ul className="navbar-nav flex-row mr-auto">
+    <nav
+      className="navbar navbar-light header position-fixed w-100"
+      style={{ zIndex: 10 }}
+    >
+      <ul className="navbar-nav flex-row mr-auto align-items-center">
         {user ? (
-          <li className="nav-item inline-block">
-            Hi, {user.username || user.email}
-          </li>
+          <>
+            <li className="nav-item inline-block">
+              Hi, {user.username || user.email}
+            </li>
+            {user.permissions?.includes("create movies") && <CreateMovie />}
+          </>
         ) : (
           <>
             <li className="nav-item">

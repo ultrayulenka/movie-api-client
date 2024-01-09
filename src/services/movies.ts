@@ -1,0 +1,64 @@
+import { Formidable, PersistentFile } from "formidable";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { Cookies } from "react-cookie";
+import * as fs from "fs";
+import { Movie } from "../types";
+import { getClientApiInstance } from "../utils/api";
+
+interface IFields {
+  name: string[];
+}
+
+interface IFiles {
+  files: PersistentFile[];
+}
+
+const srcToFile = (src: string) => fs.readFileSync(src);
+
+const constructFormData = (fields: IFields, files: IFiles): FormData => {
+  const formData = new FormData();
+
+  for (const key of Object.keys(fields)) {
+    formData.append(key, fields[key][0]);
+  }
+
+  for (const key of Object.keys(files)) {
+    const buffer = srcToFile(files[key][0].filepath);
+    const blob = new Blob([buffer]);
+    formData.append(key, blob);
+  }
+
+  return formData;
+};
+
+const handler = async (
+  requestUrl: string,
+  req: NextApiRequest
+): Promise<Movie> => {
+  const cookies = new Cookies(req.headers.cookie);
+  const api = getClientApiInstance(cookies);
+
+  const data: {
+    fields: unknown;
+    files: unknown;
+  } = await new Promise((resolve, reject) => {
+    const form = new Formidable();
+
+    form.parse(req, (err, fields, files) => {
+      if (err) reject({ err });
+      resolve({ fields, files });
+    });
+  });
+  const fields = data.fields as IFields;
+  const files = data.files as IFiles;
+  const formData = constructFormData(fields, files);
+
+  const fetch = req.method === "POST" ? api.post<Movie> : api.patch<Movie>;
+
+  const apiResponse = await fetch(requestUrl, formData);
+  const movie = apiResponse.data;
+
+  return movie;
+};
+
+export { handler };
