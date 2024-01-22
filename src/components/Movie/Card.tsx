@@ -1,9 +1,9 @@
 import { FunctionComponent, useContext } from "react";
 import { Movie } from "../../types";
 import Link from "next/link";
-import { EditMovie } from "../Movie/EditMovie";
+import { EditMovie } from "./EditMovie";
 import { appContext } from "../../context/app";
-import { DeleteMovie } from "../Movie/DeleteMovie";
+import { DeleteMovie } from "./DeleteMovie";
 
 interface Props {
   movie: Movie;

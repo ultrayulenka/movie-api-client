@@ -2,7 +2,7 @@ import { DefaultLayout } from "../../components/layouts/DefaultLayout";
 import { Movie } from "../../types";
 import { getClientApiInstance } from "../../utils/api";
 import { Cookies } from "react-cookie";
-import { Card } from "../../components/Card/Card";
+import { Card } from "../../components/Movie/Card";
 
 interface Props {
   movies: Array<Movie>;
