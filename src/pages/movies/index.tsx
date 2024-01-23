@@ -12,7 +12,7 @@ const Movies = ({ movies }: Props) => {
   return (
     <DefaultLayout>
       <div className="card-group px-5" style={{ paddingTop: "66px" }}>
-        {movies.map((movie) => {
+        {movies?.map((movie) => {
           return <Card movie={movie} key={movie.id} />;
         })}
       </div>
