@@ -1,5 +1,5 @@
 import { Formidable, PersistentFile } from "formidable";
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest } from "next";
 import { Cookies } from "react-cookie";
 import * as fs from "fs";
 import { Movie } from "../types";
@@ -38,27 +38,30 @@ const handler = async (
   const cookies = new Cookies(req.headers.cookie);
   const api = getClientApiInstance(cookies);
 
-  const data: {
-    fields: unknown;
-    files: unknown;
-  } = await new Promise((resolve, reject) => {
-    const form = new Formidable();
+  try {
+    const data: {
+      fields: unknown;
+      files: unknown;
+    } = await new Promise((resolve, reject) => {
+      const form = new Formidable();
 
-    form.parse(req, (err, fields, files) => {
-      if (err) reject({ err });
-      resolve({ fields, files });
+      form.parse(req, (err, fields, files) => {
+        if (err) reject({ err });
+        resolve({ fields, files });
+      });
     });
-  });
-  const fields = data.fields as IFields;
-  const files = data.files as IFiles;
-  const formData = constructFormData(fields, files);
+    const fields = data.fields as IFields;
+    const files = data.files as IFiles;
+    const formData = constructFormData(fields, files);
+    const fetch = req.method === "POST" ? api.post<Movie> : api.patch<Movie>;
 
-  const fetch = req.method === "POST" ? api.post<Movie> : api.patch<Movie>;
+    const apiResponse = await fetch(requestUrl, formData);
+    const movie = apiResponse.data;
 
-  const apiResponse = await fetch(requestUrl, formData);
-  const movie = apiResponse.data;
-
-  return movie;
+    return movie;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export { handler };
