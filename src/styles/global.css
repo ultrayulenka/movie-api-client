@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
   background: #0d0d0f !important;
   font-family: "Dhurjati", sans-serif !important;
-  color: #f5f5dc;
+  color: #f5f5dc !important;
 }
 a {
   text-decoration: none !important;
