@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useContext } from "react";
 import { Movie } from "../../types";
 import Link from "next/link";

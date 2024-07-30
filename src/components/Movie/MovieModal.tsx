@@ -1,3 +1,4 @@
+
 import { FunctionComponent } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { Movie } from "../../types";
@@ -28,7 +29,7 @@ export const MovieModal: FunctionComponent<Props> = ({
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.target as HTMLFormElement);
-          onSubmit(data);
+          onSubmit && onSubmit(data);
         }}
       >
         <Modal.Body className="text-body">

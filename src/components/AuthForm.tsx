@@ -1,3 +1,4 @@
+"use client";
 import {
   ChangeEventHandler,
   FormEventHandler,
@@ -41,7 +42,10 @@ const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
       <div className="px-5 py-5 mt-5">
         <h1>There is an error</h1>
         <h2>{serverError}</h2>
-        <button className="btn btn-primary w-100 mt-5" onClick={onTryAgainClick}>
+        <button
+          className="btn btn-primary w-100 mt-5"
+          onClick={onTryAgainClick}
+        >
           Try again
         </button>
       </div>

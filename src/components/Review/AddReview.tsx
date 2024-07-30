@@ -1,3 +1,4 @@
+"use client";
 import {
   FormEvent,
   FunctionComponent,
@@ -14,9 +15,7 @@ interface Props {
   movie: Movie;
 }
 
-export const AddReview: FunctionComponent<Props> = ({
-  movie,
-}) => {
+export const AddReview: FunctionComponent<Props> = ({ movie }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const router = useRouter();
@@ -82,7 +81,7 @@ export const AddReview: FunctionComponent<Props> = ({
                         style={{ cursor: "pointer" }}
                       >
                         <StarFill
-                          className={index + 1 <= rating && "text-warning"}
+                          className={index + 1 <= rating ? "text-warning" : ""}
                         />
                       </label>
                     </div>

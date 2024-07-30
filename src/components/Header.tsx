@@ -1,5 +1,6 @@
+"use client";
 import { FunctionComponent, useContext } from "react";
-import { Film, PersonCircle } from "react-bootstrap-icons";
+import { Film } from "react-bootstrap-icons";
 import { appContext } from "../context/app";
 import Link from "next/link";
 import { CreateMovie } from "./Movie/CreateMovieBtn";

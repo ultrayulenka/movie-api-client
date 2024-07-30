@@ -7,6 +7,7 @@ import axios, {
 import { Cookies } from "react-cookie";
 import { getPublicConfig } from "../config/config";
 import { removeFalsyValues } from "./object";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 const CANCEL_DELAY = 1000;
 
@@ -16,7 +17,7 @@ type RequestInterceptor = (
   config: InternalAxiosRequestConfig
 ) => InternalAxiosRequestConfig;
 
-const getAuthToken = (cookies: Cookies): string | null => {
+const getAuthToken = (cookies: ReadonlyRequestCookies): string | null => {
   const token = cookies.get("token");
 
   if (token) {
@@ -39,7 +40,7 @@ const withDefaultHeaders = (
 };
 
 export const addAuthHeaders =
-  (cookies: Cookies): RequestInterceptor =>
+  (cookies: ReadonlyRequestCookies): RequestInterceptor =>
   (config): InternalAxiosRequestConfig => {
     const token = getAuthToken(cookies);
 
@@ -52,7 +53,7 @@ export const addAuthHeaders =
     return config;
   };
 
-export const getClientApiInstance = (cookies: Cookies): AxiosInstance => {
+export const getClientApiInstance = (cookies: ReadonlyRequestCookies): AxiosInstance => {
   const sourceRequest: { [key: string]: { cancel: Canceler } } = {};
 
   let baseURL = API_URL;

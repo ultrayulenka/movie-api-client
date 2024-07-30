@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useState } from "react";
 import { MovieModal } from "./MovieModal";
 import axios from "axios";

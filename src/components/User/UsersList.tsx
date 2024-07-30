@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useState } from "react";
 import { User } from "../../types";
 import ListGroup from "react-bootstrap/ListGroup";

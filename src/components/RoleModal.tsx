@@ -1,4 +1,5 @@
-import { FunctionComponent, useContext, useState } from "react";
+"use client";
+import { FunctionComponent, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
 const ROLES = ["USER", "CONTRIBUTOR", "ADMIN"];

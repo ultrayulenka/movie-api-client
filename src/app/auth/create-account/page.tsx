@@ -1,7 +1,7 @@
-import { DefaultLayout } from "../../components/layouts/DefaultLayout";
-import { AuthInnerContent } from "../../components/AuthForm";
+import { DefaultLayout } from "../../../components/layouts/DefaultLayout";
+import { AuthInnerContent } from "../../../components/AuthForm";
 
-const LogIn = () => {
+const CreateAccount = () => {
   return (
     <DefaultLayout>
       <div className="row vh-100 m-0">
@@ -20,4 +20,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default CreateAccount;

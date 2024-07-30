@@ -1,3 +1,4 @@
+"use client";
 import { createContext } from "react";
 import { User } from "../types";
 
@@ -8,7 +9,7 @@ interface AppContextValue {
 
 const DEFAULT_APP_CONTEXT: AppContextValue = {
   user: null,
-  setUser: () => {}
+  setUser: () => {},
 };
 
 const appContext = createContext(DEFAULT_APP_CONTEXT);

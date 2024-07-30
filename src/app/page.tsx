@@ -1,10 +1,11 @@
+"use client";
 import styles from "../styles/Home.module.css";
 import React, { useContext } from "react";
 import Link from "next/link";
 import { DefaultLayout } from "../components/layouts/DefaultLayout";
 import { appContext } from "../context/app";
 
-const Home = () => {
+export default function Home() {
   const { user } = useContext(appContext);
 
   return (
@@ -28,5 +29,3 @@ const Home = () => {
     </DefaultLayout>
   );
 };
-
-export default Home;

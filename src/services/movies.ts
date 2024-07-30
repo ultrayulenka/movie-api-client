@@ -1,9 +1,8 @@
 import { Formidable, PersistentFile } from "formidable";
-import type { NextApiRequest } from "next";
-import { Cookies } from "react-cookie";
 import * as fs from "fs";
 import { Movie } from "../types";
 import { getClientApiInstance } from "../utils/api";
+import { cookies } from "next/headers";
 
 interface IFields {
   name: string[];
@@ -31,12 +30,8 @@ const constructFormData = (fields: IFields, files: IFiles): FormData => {
   return formData;
 };
 
-const handler = async (
-  requestUrl: string,
-  req: NextApiRequest
-): Promise<Movie> => {
-  const cookies = new Cookies(req.headers.cookie);
-  const api = getClientApiInstance(cookies);
+const handler = async (requestUrl: string, req: Request): Promise<Movie> => {
+  const api = getClientApiInstance(cookies());
 
   try {
     const data: {
@@ -61,6 +56,7 @@ const handler = async (
     return movie;
   } catch (error) {
     console.error(error);
+    throw new Error(error);
   }
 };
 

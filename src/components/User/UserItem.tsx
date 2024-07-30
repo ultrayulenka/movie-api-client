@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useContext } from "react";
 import { User } from "../../types";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -25,7 +26,7 @@ export const UserItem: FunctionComponent<Props> = ({
             type="button"
             className="btn btn-secondary d-block"
             data-bs-target="#exampleModal"
-            onClick={() => onAddRoleClick(id)}
+            onClick={() => id && onAddRoleClick(id)}
           >
             Add role
           </button>

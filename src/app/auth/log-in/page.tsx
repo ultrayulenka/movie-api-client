@@ -1,5 +1,5 @@
-import { DefaultLayout } from "../../components/layouts/DefaultLayout";
-import { AuthInnerContent } from "../../components/AuthForm";
+import { DefaultLayout } from "../../../components/layouts/DefaultLayout";
+import { AuthInnerContent } from "../../../components/AuthForm";
 
 const LogIn = () => {
   return (
