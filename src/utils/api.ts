@@ -1,11 +1,8 @@
 import axios, {
   AxiosInstance,
-  AxiosRequestConfig,
   Canceler,
   InternalAxiosRequestConfig,
 } from "axios";
-import { Cookies } from "react-cookie";
-import { getPublicConfig } from "../config/config";
 import { removeFalsyValues } from "./object";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 

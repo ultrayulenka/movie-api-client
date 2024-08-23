@@ -1,7 +1,7 @@
 import type { AxiosInstance } from "axios";
-import { Cookies } from "react-cookie";
 import { getClientApiInstance } from "../utils/api";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-export const useApi = (cookies: Cookies): AxiosInstance => {
+export const useApi = (cookies: ReadonlyRequestCookies): AxiosInstance => {
   return getClientApiInstance(cookies);
 };
