@@ -2,7 +2,7 @@
 import { FunctionComponent, useContext } from "react";
 import { User } from "../../types";
 import ListGroup from "react-bootstrap/ListGroup";
-import { appContext } from "../../context/app";
+import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
   user: User;
@@ -13,7 +13,7 @@ export const UserItem: FunctionComponent<Props> = ({
   user,
   onAddRoleClick,
 }) => {
-  const { user: currentUser } = useContext(appContext);
+  const currentUser = useAppSelector((state) => state.authReducer?.userData);
   const { username, email, id, permissions } = user;
 
   return (

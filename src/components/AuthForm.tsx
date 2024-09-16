@@ -3,14 +3,16 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   FunctionComponent,
-  useContext,
+  useEffect,
   useState,
 } from "react";
 import Link from "next/link";
-import axios from "axios";
-import { appContext } from "../context/app";
-
-type AuthFormType = "log-in" | "create-account";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  AuthFormType,
+  submitForm,
+  setError,
+} from "../redux/features/auth-slice";
 
 interface Props {
   type: AuthFormType;
@@ -29,19 +31,26 @@ interface AuthFormProps {
 
 const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
-  const [serverError, setServerError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
-  const { setUser } = useContext(appContext);
+  const dispatch = useAppDispatch();
+  const { error, userData } =
+    useAppSelector((state) => state.authReducer) || {};
 
-  const onTryAgainClick = () => setServerError("");
+  useEffect(() => {
+    if (userData) {
+      setIsFormSubmitted(true);
+    }
+  }, [userData]);
 
-  if (serverError) {
+  const onTryAgainClick = () => dispatch(setError(""));
+
+  if (error) {
     return (
       <div className="px-5 py-5 mt-5">
         <h1>There is an error</h1>
-        <h2>{serverError}</h2>
+        <h2>{error}</h2>
         <button
           className="btn btn-primary w-100 mt-5"
           onClick={onTryAgainClick}
@@ -73,25 +82,14 @@ const AuthInnerContent: FunctionComponent<Props> = ({ type }) => {
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
 
-    const payload =
-      type === "log-in"
-        ? { email, password }
-        : {
-            username,
-            email,
-            password,
-          };
-    try {
-      const res = await axios.post<{
-        email: string;
-      }>(`/api/${type}`, payload);
-
-      setUser({ username, email });
-
-      setIsFormSubmitted(true);
-    } catch (error) {
-      setServerError(error?.response?.statusText || "Unknown error");
-    }
+    dispatch(
+      submitForm({
+        type,
+        username,
+        email,
+        password,
+      })
+    );
   };
 
   const onEmailChange = (event) => setEmail(event.target.value);

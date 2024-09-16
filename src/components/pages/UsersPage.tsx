@@ -1,18 +1,17 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext, useState, useMemo } from "react";
-import { appContext } from "../../context/app";
+import { useState, useMemo } from "react";
 import { User } from "../../types";
 import { UsersList } from "../User/UsersList";
-import { DefaultLayout } from "../layouts/DefaultLayout";
+import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
   users: Array<User>;
 }
 
 export default function UsersPage({ users }: Props) {
-  const { user: currentUser } = useContext(appContext);
+  const currentUser = useAppSelector((state) => state.authReducer?.userData);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const filteredUsers = useMemo(

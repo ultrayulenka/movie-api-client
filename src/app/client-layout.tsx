@@ -1,8 +1,11 @@
+"use-client";
 import { cookies } from "next/headers";
 import React from "react";
 import { User } from "../types";
 import { getClientApiInstance } from "../utils/api";
-import { ContextProvider } from "../components/layouts/ContextProvider";
+import { store } from "../redux/store";
+import { authentificate } from "../redux/features/auth-slice";
+import StoreProvider from "./store-provider";
 
 async function getData(): Promise<{ userData: User | null }> {
   const cookiesValue = cookies();
@@ -26,7 +29,7 @@ export default async function ClientLayout({
 }) {
   const authData = await getData();
 
-  return (
-    <ContextProvider userData={authData.userData}>{children}</ContextProvider>
-  );
+  store.dispatch(authentificate(authData.userData));
+
+  return <StoreProvider>{children}</StoreProvider>;
 }

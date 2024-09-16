@@ -1,16 +1,21 @@
 "use client";
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { Film } from "react-bootstrap-icons";
-import { appContext } from "../context/app";
 import Link from "next/link";
 import { CreateMovie } from "./Movie/CreateMovieBtn";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Button } from "react-bootstrap";
+import { logOut } from "../redux/features/auth-slice";
 
 export const Header: FunctionComponent = () => {
-  const { user } = useContext(appContext);
+  const user = useAppSelector((state) => state.authReducer?.userData);
+  const dispatch = useAppDispatch();
+
+  const onLogOutClick = () => dispatch(logOut());
 
   return (
     <nav
-      className="navbar navbar-light header position-fixed w-100"
+      className="navbar navbar-light header position-fixed w-100 p-2"
       style={{ zIndex: 10 }}
     >
       <ul className="navbar-nav flex-row mr-auto align-items-center">
@@ -39,9 +44,16 @@ export const Header: FunctionComponent = () => {
           </>
         )}
       </ul>
-      <Link className="navbar-brand" href="/">
-        <Film size={24} color="beige" />
-      </Link>
+      <div>
+        {user && (
+          <Button className="nav-item" onClick={onLogOutClick}>
+            Log out
+          </Button>
+        )}
+        <Link className="navbar-brand" href="/">
+          <Film size={24} color="beige" />
+        </Link>
+      </div>
     </nav>
   );
 };

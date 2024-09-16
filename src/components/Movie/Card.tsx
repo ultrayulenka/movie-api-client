@@ -1,10 +1,10 @@
 "use client";
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { Movie } from "../../types";
 import Link from "next/link";
 import { EditMovie } from "./EditMovie";
-import { appContext } from "../../context/app";
 import { DeleteMovie } from "./DeleteMovie";
+import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
   movie: Movie;
@@ -12,7 +12,7 @@ interface Props {
 
 export const Card: FunctionComponent<Props> = ({ movie }) => {
   const { name, poster, year, genre, rating, id } = movie;
-  const { user } = useContext(appContext);
+  const user = useAppSelector((state) => state.authReducer?.userData);
 
   return (
     <div
