@@ -4,9 +4,10 @@ import { getClientApiInstance } from "../../../../utils/api";
 
 export async function PATCH(req: Request) {
   const url = new URL(req.url);
-  const requestUrl = `/movies/${url.pathname.split("/")[1]}`;
+  const splittedUrl = url.pathname.split("/");
+  const requestUrl = `/movies/${splittedUrl[splittedUrl.length - 1]}`;
   try {
-    const movie = await handler("movies", req);
+    const movie = await handler(requestUrl, req);
 
     return new Response(JSON.stringify({ movie }), {
       status: 200,

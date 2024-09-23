@@ -12,7 +12,7 @@ export const ReviewsList: FunctionComponent<Props> = ({ reviews }) => {
     <>
       <h3>Reviews </h3>
       {reviews?.length ? (
-        <ListGroup>
+        <ListGroup className="w-100">
           {reviews.map((review) => (
             <ReviewItem review={review} key={review.id} />
           ))}

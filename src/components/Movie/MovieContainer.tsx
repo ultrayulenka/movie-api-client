@@ -41,7 +41,7 @@ export const MovieContainer: FunctionComponent<Props> = ({ movie }) => {
           }
         />
       </Row>
-      <Row className="mt-5 w-25">
+      <Row className="mt-5 w-100">
         <ReviewsList reviews={movie.reviews} />
         {userData && <AddReview movie={movie} />}
       </Row>

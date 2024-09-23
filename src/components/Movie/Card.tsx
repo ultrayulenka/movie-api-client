@@ -21,7 +21,7 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
     >
       <img
         className="card-img-top"
-        src={`https://movies-api-9eyb.onrender.com/${poster}`}
+        src={`/api/image/${poster}`}
         alt={name}
         style={{ height: "420px", width: "100%" }}
       />

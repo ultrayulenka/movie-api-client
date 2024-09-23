@@ -18,7 +18,7 @@ const getAuthToken = (cookies: ReadonlyRequestCookies): string | null => {
   const token = cookies.get("token");
 
   if (token) {
-    return `Bearer ${token}`;
+    return `Bearer ${token.value}`;
   }
 
   return null;
@@ -50,7 +50,9 @@ export const addAuthHeaders =
     return config;
   };
 
-export const getClientApiInstance = (cookies: ReadonlyRequestCookies): AxiosInstance => {
+export const getClientApiInstance = (
+  cookies: ReadonlyRequestCookies
+): AxiosInstance => {
   const sourceRequest: { [key: string]: { cancel: Canceler } } = {};
 
   let baseURL = API_URL;

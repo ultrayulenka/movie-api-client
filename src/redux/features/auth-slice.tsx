@@ -5,13 +5,13 @@ import axios from "axios";
 export type AuthFormType = "log-in" | "create-account";
 
 interface AuthState {
-  userData: User | null;
+  userData?: User;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  userData: null,
+  userData: undefined,
   isLoading: false,
   error: "",
 };
@@ -54,12 +54,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    authentificate(state, action: PayloadAction<User | null>) {
+    authentificate(state, action: PayloadAction<User | undefined>) {
       state.userData = action.payload;
       state.isLoading = false;
     },
     logOut(state) {
-      state.userData = null;
+      state.userData = undefined;
       state.isLoading = false;
     },
     setIsLoading(state, action: PayloadAction<boolean>) {

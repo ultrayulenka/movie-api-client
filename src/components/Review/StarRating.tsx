@@ -12,10 +12,10 @@ export const StarRating: FunctionComponent<Props> = ({ rate }) => {
         const rest = rate - index - 1;
 
         if (rest >= 0) {
-          return <StarFill className="text-warning" />;
+          return <StarFill className="text-warning" key={index} />;
         }
 
-        return <Star className="text-warning" />;
+        return <Star className="text-warning" key={index} />;
       })}
     </div>
   );

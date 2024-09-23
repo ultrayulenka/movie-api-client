@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
 import { User } from "../../types";
 import { UsersList } from "../User/UsersList";
@@ -29,7 +29,7 @@ export default function UsersPage({ users }: Props) {
 
       setIsLoading(false);
       alert(`Success! Added ${roleName} role to user with id ${id}`);
-      router.reload();
+      router.refresh();
     } catch (error) {
       console.error(error);
       setIsLoading(false);

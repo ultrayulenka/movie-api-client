@@ -1,4 +1,3 @@
-
 import { FunctionComponent } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { Movie } from "../../types";

@@ -15,7 +15,7 @@ export const MovieDetails: FunctionComponent<Props> = ({ movie, actions }) => {
     <>
       <Col xs={3}>
         <Image
-          src={`https://movies-api-9eyb.onrender.com/${poster}`}
+          src={`/api/image/${poster}`}
           rounded
           fluid
           style={{ boxShadow: "rgba(250, 250, 250, 0.5) 0px 7px 29px 0px" }}
