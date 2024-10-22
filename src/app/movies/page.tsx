@@ -27,7 +27,6 @@ async function getData(): Promise<{
 
 export default async function Movies() {
   const { movies, errorCode } = await getData();
-  console.log("We are here");
 
   return (
     <ServerDefaultLayout>

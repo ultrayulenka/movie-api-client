@@ -14,7 +14,7 @@ interface Props {
 export const DefaultLayout: FunctionComponent<Props> = ({ children, user }) => {
   const dispacth = useDispatch();
   dispacth(authentificate(user));
-  
+
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker

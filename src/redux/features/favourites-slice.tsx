@@ -45,10 +45,14 @@ const favouritesSlice = createSlice({
         .toSpliced(index, 1)
         .toSpliced(action.payload.newPos, 0, el);
     },
+    clearFavourites(state) {
+      state.movies = [];
+    },
   },
 });
 
-const { addToFavourites, removeFromFavourites, updatePosition } = favouritesSlice.actions;
+const { addToFavourites, removeFromFavourites, updatePosition } =
+  favouritesSlice.actions;
 
 export default favouritesSlice.reducer;
 export { addToFavourites, removeFromFavourites, updatePosition };

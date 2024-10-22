@@ -19,6 +19,9 @@ export default function Home() {
             Go to movies
           </Link>
           <UsersLink />
+          <Link className="btn btn-outline-danger mt-3" href="/favourites">
+            Go to favourites
+          </Link>
         </li>
       </ul>
     </ServerDefaultLayout>

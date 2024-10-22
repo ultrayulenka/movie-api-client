@@ -5,6 +5,7 @@ import Link from "next/link";
 import { EditMovie } from "./EditMovie";
 import { DeleteMovie } from "./DeleteMovie";
 import { useAppSelector } from "../../redux/hooks";
+import { AddMovieToFavourites } from "./AddMovieToFavourites";
 
 interface Props {
   movie: Movie;
@@ -18,9 +19,8 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
     <div
       className="card mx-2 mb-2"
       style={{
-        width: "31%.8",
-        maxWidth: "281px",
-        minWidth: "281px",
+        width: "31.8%",
+        maxWidth: "348.5px",
         flex: "auto",
       }}
     >
@@ -52,6 +52,7 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
             Go to movie page
           </Link>
           <div>
+            <AddMovieToFavourites movie={movie} />
             {user?.permissions?.includes("edit movies") && (
               <EditMovie movie={movie} />
             )}

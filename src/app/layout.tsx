@@ -37,8 +37,6 @@ export default async function RootLayout({
 }) {
   const userInfo = await getData();
 
-  console.log('We are in layout!!!')
-
   return (
     <html lang="en">
       <body>
