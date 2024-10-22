@@ -27,7 +27,7 @@ export const CreateMovie: FunctionComponent<Props> = () => {
   return (
     <>
       <li className="nav-item">
-        <button className="btn btn-outline-success" onClick={onShow}>
+        <button className="btn btn-success" onClick={onShow}>
           Add new movie
         </button>
       </li>

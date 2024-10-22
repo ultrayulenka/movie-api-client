@@ -31,7 +31,7 @@ export const DeleteMovie: FunctionComponent<Props> = ({ movie, variant = "dark",
 
   return (
     <>
-      <button className="bg-transparent border-0" onClick={onShow}>
+      <button className="bg-transparent border-0" onClick={onShow} aria-label="Delete">
         <Trash
           size={24}
           className={variant === "dark" ? "text-black" : "text-white"}

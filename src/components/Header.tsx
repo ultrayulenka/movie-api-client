@@ -50,7 +50,7 @@ export const Header: FunctionComponent = () => {
             Log out
           </Button>
         )}
-        <Link className="navbar-brand" href="/">
+        <Link className="navbar-brand" href="/" aria-label="Home page">
           <Film size={24} color="beige" />
         </Link>
       </div>

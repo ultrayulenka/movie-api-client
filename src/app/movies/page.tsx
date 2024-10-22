@@ -28,7 +28,7 @@ export default async function Movies() {
 
   return (
     <DefaultLayout>
-      <div className="card-group px-5" style={{ paddingTop: "66px" }}>
+      <div className="card-group px-5" style={{ paddingTop: "66px", width: '100vw' }}>
         {movies?.map((movie) => {
           return <Card movie={movie} key={movie.id} />;
         })}

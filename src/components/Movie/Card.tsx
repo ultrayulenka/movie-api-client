@@ -17,14 +17,21 @@ export const Card: FunctionComponent<Props> = ({ movie }) => {
   return (
     <div
       className="card mx-2 mb-2"
-      style={{ maxWidth: "340px", minWidth: "300px" }}
+      style={{
+        width: "31%.8",
+        maxWidth: "281px",
+        minWidth: "281px",
+        flex: "auto",
+      }}
     >
-      <img
-        className="card-img-top"
-        src={`/api/image/${poster}`}
-        alt={name}
-        style={{ height: "420px", width: "100%" }}
-      />
+      <div style={{ height: "420px", width: "100%" }}>
+        <img
+          className="card-img-top"
+          src={`/api/image/${poster}`}
+          alt={name}
+          style={{ height: "100%", width: "100%", objectFit: "cover" }}
+        />
+      </div>
       <div className="card-body">
         <h4 className="card-title">
           {name} ({year})

@@ -34,7 +34,7 @@ export const EditMovie: FunctionComponent<Props> = ({
 
   return (
     <>
-      <button className="bg-transparent border-0 mr-3" onClick={onShow}>
+      <button className="bg-transparent border-0 mr-3" onClick={onShow} aria-label="Edit">
         <PencilSquare
           size={24}
           className={variant === "dark" ? "text-black" : "text-white"}
