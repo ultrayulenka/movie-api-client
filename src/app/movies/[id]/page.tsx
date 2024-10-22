@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { Movie } from "../../../types";
 import { getClientApiInstance } from "../../../utils/api";
-import { DefaultLayout } from "../../../components/layouts/DefaultLayout";
 import { MovieContainer } from "../../../components/Movie/MovieContainer";
+import { ServerDefaultLayout } from "../../ServerLayout";
+
+export const dynamic = "force-dynamic";
 
 async function getData(id: string): Promise<{
   movie?: Movie;
@@ -33,8 +35,8 @@ export default async function MoviePage({
   if (!movie) return null;
 
   return (
-    <DefaultLayout>
+    <ServerDefaultLayout>
       <MovieContainer movie={movie} />
-    </DefaultLayout>
+    </ServerDefaultLayout>
   );
 }

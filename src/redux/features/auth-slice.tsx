@@ -16,6 +16,18 @@ const initialState: AuthState = {
   error: "",
 };
 
+const logOut = createAsyncThunk(
+  "auth/logOut",
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post("/api/log-out");
+      return;
+    } catch (error: any) {
+      return rejectWithValue(error?.response?.statusText || "Logout failed");
+    }
+  }
+);
+
 const submitForm = createAsyncThunk(
   "auth/submitForm",
   async (
@@ -58,10 +70,6 @@ const authSlice = createSlice({
       state.userData = action.payload;
       state.isLoading = false;
     },
-    logOut(state) {
-      state.userData = undefined;
-      state.isLoading = false;
-    },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
@@ -82,10 +90,22 @@ const authSlice = createSlice({
       .addCase(submitForm.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
+      })
+      .addCase(logOut.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.userData = undefined;
+        state.isLoading = false;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
-const { authentificate, logOut, setError } = authSlice.actions;
+const { authentificate, setError } = authSlice.actions;
 export default authSlice.reducer;
 export { authentificate, logOut, submitForm, setError };

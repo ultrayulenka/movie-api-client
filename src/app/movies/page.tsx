@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { Movie } from "../../types";
 import { getClientApiInstance } from "../../utils/api";
-import { DefaultLayout } from "../../components/layouts/DefaultLayout";
 import { Card } from "../../components/Movie/Card";
+import { ServerDefaultLayout } from "../ServerLayout";
+
+export const dynamic = "force-dynamic";
 
 async function getData(): Promise<{
   movies?: Array<Movie>;
@@ -25,14 +27,18 @@ async function getData(): Promise<{
 
 export default async function Movies() {
   const { movies, errorCode } = await getData();
+  console.log("We are here");
 
   return (
-    <DefaultLayout>
-      <div className="card-group px-5" style={{ paddingTop: "66px", width: '100vw' }}>
+    <ServerDefaultLayout>
+      <div
+        className="card-group px-5"
+        style={{ paddingTop: "66px", width: "100vw" }}
+      >
         {movies?.map((movie) => {
           return <Card movie={movie} key={movie.id} />;
         })}
       </div>
-    </DefaultLayout>
+    </ServerDefaultLayout>
   );
 }

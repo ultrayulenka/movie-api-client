@@ -6,6 +6,8 @@ import { User } from "../types";
 import { getClientApiInstance } from "../utils/api";
 import { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Movies API Client",
   description:
@@ -34,6 +36,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userInfo = await getData();
+
+  console.log('We are in layout!!!')
 
   return (
     <html lang="en">

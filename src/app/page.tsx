@@ -1,18 +1,14 @@
-"use client";
 import styles from "../styles/Home.module.css";
 import React from "react";
 import Link from "next/link";
-import { DefaultLayout } from "../components/layouts/DefaultLayout";
-import { useAppSelector } from "../redux/hooks";
-import { RootState } from "../redux/store";
+import { ServerDefaultLayout } from "./ServerLayout";
+import UsersLink from "../components/UsersLink";
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
-  const userData = useAppSelector(
-    (state: RootState) => state.authReducer?.userData
-  );
-
   return (
-    <DefaultLayout>
+    <ServerDefaultLayout>
       <h1 className={styles.title}>
         <br />
         Welcome to Movies Api Client!
@@ -22,13 +18,9 @@ export default function Home() {
           <Link className="btn btn-outline-primary" href="/movies">
             Go to movies
           </Link>
-          {userData?.permissions?.includes("view user") && (
-            <Link className="btn btn-outline-info mt-3" href="/users">
-              Go to users
-            </Link>
-          )}
+          <UsersLink />
         </li>
       </ul>
-    </DefaultLayout>
+    </ServerDefaultLayout>
   );
 }
